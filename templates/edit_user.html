@@ -1,0 +1,160 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SJCGROUP</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+  <div class="container ">
+      <div class = "card mx-auto">
+        <div class = "card-header bg-primary text-white"><h4 align="center"> ข้อมูลส่วนตัว </h4></div>
+          <div class = "card-body">
+              <form action = "{{ url_for('member.create_member') }}"  method = 'post' >
+                        <div class="form-group row">
+                          <div class="col-xs-4">
+                            <label for="firstname">Username</label>
+        {% for row in datas %}
+                              <input type="text" class="form-control" id="ID" name="ID" placeholder="{{row.0}}" disabled>
+
+                          </div>
+                          <div class="col-xs-4">
+                            <label for="firstname">ชื่อ</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{row.1}}" disabled>
+                          </div>
+                          <div class="col-xs-4">
+                            <label for="lastname">นามสกุล</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname"   placeholder="{{row.2}}" disabled>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group" >
+                          <label for="sex" class ="col-form-label">เพศ :</label>
+                          <select class="custom-select" id="sex" name="sex" placeholder="{{row.3}}" disabled>
+                            <option value="ชาย" name="sex" selected>ชาย</option>
+                            <option value="หญิง" name="sex" >หญิง</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group row" >
+                          <div class="col-xs-4">
+                            <label for="company" class ="col-form-label-lg">บริษัท :</label>
+                            <select class="custom-select" id="company" name="company"  placeholder="{{row.4}}" disabled>
+                              {%if row.4 == 'SOR'  %}
+                              <option value="SOR" name="SOR" selected>ส.เจริญชัย</option>
+                                {% elif row.4 == 'SJCCONCRETE' %}
+                              <option value="SJCCONCRETE" name="SJCCONCRETE" >เอส.เจ.ซี.คอนกรีต</option>
+                                {% elif row.4 == 'SJCPRECAST' %}
+                              <option value="SJCPRECAST" name="SJCPRECAST" >เอส.เจ.ซี.พรีคาสท์</option>
+                                {% elif row.4 == 'SJCFASTFENCE' %}
+                              <option value="SJCFASTFENCE" name="SJCFASTFENCE" >เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                                {% elif row.4 == 'GREENERRY' %}
+                              <option value="GREENERRY" name="GREENERRY" >กรีนเนอรี่</option>
+                                {% elif row.4 == '331NGV' %}
+                              <option value="331NGV" name="331NGV" >331NGV</option>
+                                {% else %}
+                              <option value="none" name="none" ></option>
+                                {% endif %}
+                            </select>
+                          </div>
+                          <div class="col-xs-4">
+                            <label for="department" class ="col-form-label-lg">ฝ่าย :</label>
+                            <select class="custom-select" id="department" name="department" placeholder="{{row.5}}" disabled>
+                                {%if row.5 == 'account'  %}
+                              <option value="account" name="ACC" selected>ฝ่ายบัญชี</option>
+                                {% elif row.5 == 'sales' %}
+                              <option value="sales" name="sales" >ฝ่ายขาย</option>
+                                {% elif row.5 == 'hr' %}
+                              <option value="hr" name="hr" >ฝ่ายบุคคล</option>
+                                {% elif row.5 == 'IT' %}
+                              <option value="IT" name="IT" >ฝ่ายเทคโนโลยีสานสนทเศ</option>
+                                {% elif row.5 == 'transport' %}
+                              <option value="transport" name="transport" >ฝ่ายขนส่ง</option>
+                                {% elif row.5 == 'maintenance' %}
+                              <option value="maintenance" name="maintenance" >ฝ่ายซ่อมบำรุง</option>
+                                {% elif row.5 == 'store' %}
+                              <option value="store" name="store" >ฝ่ายคลังสินค้า</option>
+                                {% elif row.5 == 'production_rmc' %}
+                              <option value="production_rmc" name="production_rmc" >ฝ่ายผลิตคอนกรีตผสมเสร็จ</option>
+                                {% elif row.5 == 'production_cp' %}
+                              <option value="production_cp" name="production_cp" >ฝ่ายผลิต ผลิตภัณฑ์สินค้าสำเร็จรูป</option>
+                                {% elif row.5 == 'lab' %}
+                              <option value="lab" name="lab" >ฝ่ายควบคุมคุณภาพ</option>
+                                {% elif row.5 == 'other' %}
+                              <option value="other" name="other" >อื่นๆ</option>
+                                {% else %}
+                               <option value="none" name="none" ></option>
+                                {% endif %}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                              <div class="col-xs-4">
+                                <label for="position">ตำแหน่ง</label>
+                                <input type="text" class="form-control" id="position" name="position"  placeholder="{{row.8}}" disabled>
+                              </div>
+                              <div class="col-xs-4">
+                                <label for="telephone">เบอร์โทรศัพท์</label>
+                                <input type="tel" class="form-control" id="telephone" name="telephone"  placeholder="{{row.9}}" disabled>
+                              </div>
+                              <div class="col-xs-4">
+                                <label for="email">Email</label>
+                                <input type="email3" class="form-control" id="email" name="email" placeholder="{{row.10}}" disabled>
+                              </div>
+                        </div>
+
+                    <span id="textg" class="form-text">
+                        <p><p>
+                    </span>
+                          <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                              <label for="inputPassword6" class="col-form-label" placeholder="{{row.12}}" >Password</label>
+         {% endfor %}
+                            </div>
+                                <div class="col-auto">
+                                  <input type="password" id="inputPassword6" name="inputPassword6" form-control" aria-describedby="passwordHelpInline" disabled>
+                                </div>
+                                <div class="col-auto">
+                              <span id="passwordHelpInline" class="form-text">
+
+                              </span>
+                            </div>
+                          </div>
+          <br>
+                      <a href="/edit_user_member" class="btn btn-success">แก้ไขข้อมูล</a>
+                      <a href="/" class="btn btn-success">กลับสู่หน้าหลัก</a>
+
+                  <!-- Modal
+                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">บึกทึกข้อมูล</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ต้องการบันทึกข้อมูลหรือไม่
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      end Modal -->
+
+
+              </form>
+          </div>
+      </div>
+  </div>
+</body>
+</html>

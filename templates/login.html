@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SJCGROUP</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569818907/jquery.table2excel.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+  <div class="container ">
+
+      <div class = "card">
+        <div class = "card-header bg-primary text-white"><h4 align="center"> Login เพื่อเข้าใช้งาน </h4></div>
+          <div class = "card-body">
+              <form action = "{{ url_for('member.checklogin') }}"  method = 'post' >
+                  <div class="mb-3">
+                    <label for="ID" class="form-label">รหัสพนักงาน</label>
+                    <input type="text" class="form-control" id="ID" name="ID" aria-describedby="emailHelp">
+                    <div id="IDHelp" class="form-text"></div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">รหัสผ่าน</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  <!-- <a href="/register" class="btn btn-primary btn-">ลงทะเบียนเข้าใช้งาน</a>  -->
+                </form>
+          </div>
+      </div>
+  </div>
+</body>
+</html>

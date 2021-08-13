@@ -1,0 +1,221 @@
+{% include "header.html" %}
+
+<html lang="en">
+<head>
+
+
+    <style>
+  body  {
+  background-image: url('{{ url_for('static', filename='img/bg.jpg') }}');
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.button {
+  border-radius: 4px;
+  background-color: #00b111;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+@font-face {
+  font-family: 'DIGITAL';
+  src: url('https://cssdeck.com/uploads/resources/fonts/digii/DS-DIGII.TTF');
+}
+
+
+
+.digital-clock {
+  margin: 0;
+  position: absolute;
+  top: 40px;
+  left: 15px;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 60px;
+  color: #ffffff;
+  border: 2px solid #999;
+  border-radius: 4px;
+  text-align: end;
+  font: 50px/60px 'DIGITAL', Helvetica;
+  background: linear-gradient(90deg, #000, #555);
+}
+
+  table, th, thead {
+          border: 0px solid black;
+            font-size:15pt;
+        }
+        td,tbody {
+          border: 0px solid black;
+            font-size:20pt;
+            font-family: "Browallia New";
+        }
+.navbar {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+</style>
+</head>
+
+<body>
+
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="digital-clock">00:00:00</div>
+    </div>
+    <div class="row justify-content-center">
+        <h3></h3>
+    </div>
+    <div class="row justify-content-end">
+        <br><br><br>
+        <h1 style="font-family: 'Browallia New' ; color: darkblue ; font-weight: bolder ; font-size: xxx-large ">{{ datenow }} &nbsp &nbsp</h1>
+    </div>
+    <div class="card">
+            <div class="card-header bg-dark text-white" >
+                <div class="row justify-content-center">
+                    <div class="col-2" style="font-size: xx-large">DELIVERY ORDER</div>
+                    <div class="col-1" style="font-size: xx-large ; color: #ff9314"> F203 </div>
+                </div>
+            </div>
+
+            <div class="card-body" style="background-color: white smoke">
+                <div class="table-responsive">
+                <div class="container-fluid">
+                    <table id="table2excel"  class="table table-striped table-sm table-bordered table-hover table caption-top">
+
+                        <br>
+                        <caption>data real time</caption>
+                        <thead class="table-dark" >
+                            <tr>
+                                <th class="text-center">DN</th>
+<!--                                <th class="text-center">SH.POINT</th>-->
+                                <th class="text-center">IT.NO</th>
+                                <th class="text-center">IT.CODE</th>
+                                <th class="text-center">IT.NAME</th>
+                                <th class="text-center">QTY</th>
+                                <th class="text-center">UNIT</th>
+                                <th class="text-center">PK.TIME</th>
+                                <th class="text-center">LO.TIME</th>
+                                <th class="text-center">DIV.TIME</th>
+                                <th class="text-center">SoldName</th>
+                                <th class="text-center">ShipName</th>
+                                <th class="text-center">T.NO</th>
+                                <th class="text-center">Desc</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr>
+                                <td class="text-center">{{ i.0 }}</td>
+<!--                                <td class="text-center">{{ i.1 }}</td>-->
+                                <td class="text-center">{{ i.2 }}</td>
+                                <td class="">{{ i.3 }}</td>
+                                <td class="">{{ i.4 }}</td>
+                                <td class="text-center">{{ "{:,}".format( i.5 ) }} </td>
+                                <td class="text-center">{{ i.6 }}</td>
+                                <td class="text-center" style="font-size: xx-large ; color: darkblue ; font-weight: bolder">{{ i.7 }}</td>
+                                <td class="text-center" style="font-size: xx-large ; color: darkblue ; font-weight: bolder">{{ i.8 }}</td>
+                                <td class="text-center" style="font-size: xx-large ; color: darkblue ; font-weight: bolder">{{ i.9 }}</td>
+                                <td class="">{{ i.10 }}</td>
+                                <td class="">{{ i.11 }}</td>
+                                <td class="">{{ i.12 }}</td>
+                                <td class="">{{ i.13 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+            </div>
+
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+  clockUpdate();
+  setInterval(clockUpdate, 1000);
+})
+
+function clockUpdate() {
+  var date = new Date();
+  $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
+  function addZero(x) {
+    if (x < 10) {
+      return x = '0' + x;
+    } else {
+      return x;
+    }
+  }
+
+  function twelveHour(x) {
+    if (x > 12) {
+      return x = x - 12;
+    } else if (x == 0) {
+      return x = 12;
+    } else {
+      return x;
+    }
+  }
+
+  var h = addZero(twelveHour(date.getHours()));
+  var m = addZero(date.getMinutes());
+  var s = addZero(date.getSeconds());
+
+  $('.digital-clock').text(h + ':' + m + ':' + s)
+}
+
+
+</script>
+
+
+</html>

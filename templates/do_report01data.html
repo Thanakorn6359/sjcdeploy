@@ -1,0 +1,224 @@
+{% include "header.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+  body  {
+  background-image: url('{{ url_for('static', filename='img/bg.jpg') }}');
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.button {
+  border-radius: 4px;
+  background-color: #00b111;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+  table, th, thead {
+          border: 0px solid black;
+            font-size:10pt;
+        }
+        td,tbody {
+          border: 0px solid black;
+            font-size:15pt;
+            font-family: "Browallia New";
+        }
+.navbar {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+</style>
+</head>
+
+<body>
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+        <h3></h3>
+    </div>
+    <div class="row justify-content-end">
+        <br><br><br>
+        <h1 style="font-family: 'Browallia New' ; color: darkblue ; font-weight: bolder ; font-size: xxx-large ">&nbsp &nbsp</h1>
+    </div>
+    <div class="card" >
+                <div class="card-header bg-dark text-white" >
+                    <h2 align="center">รายงานจัดส่งสินค้า CP</h2>
+                </div>
+                <br>
+                <div class="card-body" style="background-color: whitesmoke">
+                    <form action = "{{ url_for('do_report.do_report01data') }}"  method = 'post' required>
+                      <!--  ออกแบบ row  -->
+                        <br>
+
+                            <div class="row" >
+                                <div class="form-group col-md-3">
+                                    <label for="f_order_date1">วันที่ : &nbsp &nbsp </label>
+                                    <input type="date" id="f_order_date1" name="f_order_date1" value="{{f_date1}}" required >
+                                </div>
+                      <!--   <div class="form-group col-md-2">
+                                <label for="t_order_date1">ถึงวันที่ :  </label>
+                                <input type="date" id="t_order_date1" name="t_order_date1" value="{{t_date1}}" required >
+                            </div>
+                       -->
+
+                              <div class="form-group col-md-3">
+                                  <label for="chose_plant">เลือกโรงผลิต : &nbsp </label>
+                                    <select class="form-select" name="p_id" >
+                                      <option value="" selected>All PLANT</option>
+                                      <option value="F201">F201</option>
+                                      <option value="F202">F202</option>
+                                      <option value="F203">F203</option>
+                                      <option value="F204">F204</option>
+                                      <option value="F205">F205</option>
+                                      <option value="F206">F206</option>
+                                      <option value="F207">F207</option>
+                                      <option value="F241">F241</option>
+                                    </select>
+                                  </div>
+
+
+                                <div class="form-group col-sm-2">
+                                   <input class="btn btn-success btn-md"  type="submit" value="OK">
+                                </div>
+                            </div>
+
+                    </form>
+                    <h4>การจัดส่งสินค้า CP {{plant}} ประจำวันที่ {{date_r}} </h4>
+                    <button class="btn btn-success btn-md"  id='DLtoExcel'>Export to Excel</button>
+                </div>
+
+                <div class="table-responsive">
+                    <div class="container-fluid">
+                        <table id="table2excel"  class="table table-striped table-sm table-bordered table-hover table caption-top">
+
+                            <br>
+                            <caption>--</caption>
+                            <thead class="table-info table-dark">
+                                <tr>
+                                    <th>Stl</th>
+                                    <th>DoNumber</th>
+                                    <th>PK_DATE</th>
+                                    <th>LO_DATE</th>
+                                    <th>DEV_DATE</th>
+                                    <th>IT.NO</th>
+                                    <th>IT.NAME</th>
+                                    <th>SO.QTY</th>
+                                    <th>QTY</th>
+                                    <th>EA</th>
+<!--                                    <th><h4 style="color: darkblue">STATUS</h4></th>-->
+                                    <th>SoldToName</th>
+                                    <th>ShipName</th>
+                                    <th>TruckNO</th>
+                                    <th>Desp</th>
+                                    <th>SaleCode</th>
+                                    <th>Contact</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for i in rows %}
+                                <tr>
+                                    <td>{{i.0}}</td>
+                                    <td>{{i.1}}</td>
+                                    <td>{{i.2}}</td>
+                                    <td>{{i.3}}</td>
+                                    <td>{{i.4}}</td>
+                                    <td>{{i.5}}</td>
+                                    <td>{{i.6}}</td>
+                                    <td>{{i.7}}</td>
+                                    <td>{{i.8}}</td>
+                                    <td>{{i.9}}</td>
+                                    <td>{{i.10}}</td>
+                                    <td>{{i.11}}</td>
+                                    <td>{{i.12}}</td>
+                                    <td>{{i.13}}</td>
+                                    <td>{{i.14}}</td>
+                                    <td>{{i.15}}</td>
+
+                                </tr>
+
+                                {% endfor %}
+                            <!-- Model pop up  -->
+                            <!-- end Model pop up  -->
+
+
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+                <!-- lineChart -->
+                <!-- End lineChart -->
+        </div>
+            </div>
+
+  </div>
+</body>
+
+
+
+
+
+
+
+
+<script>
+     $(function() {
+                      $("button").click(function(){
+                        $("#table2excel").table2excel({
+                          exclude: "batching.xls",
+                          name: "Excel Document Name"
+                            });
+                      });
+                    });
+
+</script>
+
+
+</html>

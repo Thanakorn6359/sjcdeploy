@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SJCGROUP</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569818907/jquery.table2excel.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+  <div class="container ">
+      <div class = "card mx-auto">
+        <div class = "card-header bg-primary text-white"><h4 align="center"> ลงทะเบียนเข้าใช้งาน </h4></div>
+          <div class = "card-body">
+              <form action = "{{ url_for('member.create_member') }}"  method = 'post' >
+                        <div class="form-group row">
+
+                          <div class="col-xs-4">
+                            <label for="firstname">ชื่อ</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="first Name" required>
+                          </div>
+                          <div class="col-xs-4">
+                            <label for="lastname">นามสกุล</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname"   placeholder="Last Name" required>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group" >
+                          <label for="sex" class ="col-form-label">เพศ :</label>
+                          <select class="custom-select" id="sex" name="sex" required>
+                            <option value="male" name="sex" selected>ชาย</option>
+                            <option value="female" name="sex" >หญิง</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group row" >
+                          <div class="col-xs-4">
+                            <label for="company" class ="col-form-label-lg">บริษัท :</label>
+                            <select class="custom-select" id="company" name="company" required>
+                              <option value="SOR" name="SOR" >ส.เจริญชัย</option>
+                              <option value="SJC" name="SJCCONCRETE" selected>เอส.เจ.ซี.คอนกรีต</option>
+                              <option value="SJCPC" name="SJCPRECAST" >เอส.เจ.ซี.พรีคาสท์</option>
+                              <option value="SJCFF" name="SJCFASTFENCE" >เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                            </select>
+                          </div>
+                          <div class="col-xs-4">
+                            <label for="department" class ="col-form-label-lg">User Group :</label>
+                            <select class="custom-select" id="department" name="department" required>
+                              <option value="account" name="ACC" selected>ฝ่ายบัญชี</option>
+                              <option value="sales" name="sales" >ฝ่ายขาย</option>
+                              <option value="CDC" name="CDC" >CDC</option>
+                              <option value="IT" name="IT" >ฝ่ายเทคโนโลยีสานสนทเศ</option>
+                              <option value="transport" name="transport" >ฝ่ายขนส่ง</option>
+                              <option value="maintenance" name="maintenance" >ฝ่ายซ่อมบำรุง</option>
+                              <option value="store" name="store" >ฝ่ายคลังสินค้า</option>
+                              <option value="production_rmc" name="production_rmc" >ฝ่ายผลิตคอนกรีตผสมเสร็จ</option>
+                              <option value="production_cp" name="production_cp" >ฝ่ายผลิต ผลิตภัณฑ์สินค้าสำเร็จรูป</option>
+                              <option value="lab" name="lab" >ฝ่ายควบคุมคุณภาพ</option>
+                              <option value="other" name="other" >อื่นๆ</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                              <div class="col-xs-4">
+                                <label for="position">ตำแหน่ง</label>
+                                <input type="text" class="form-control" id="position" name="position"  placeholder="" required>
+                              </div>
+                              <div class="col-xs-4">
+                                <label for="telephone">เบอร์โทรศัพท์</label>
+                                <input type="tel" class="form-control" id="telephone" name="telephone"  placeholder="0123456789" required>
+                              </div>
+                              <div class="col-xs-4">
+                                <label for="email">Email</label>
+                                <input type="email3" class="form-control" id="email" name="email" placeholder="email@email">
+                              </div>
+                        </div>
+
+                    <span id="textg" class="form-text">
+                        <p> ** กำหนด Username Password ในการเข้าใช้งาน ** <p>
+                    </span>
+                          <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                              <label for="ID" class="col-form-label">Username :</label>
+                            </div>
+                                <div class="col-auto">
+                                  <input type="text" id="ID" name="ID" form-control" aria-describedby="passwordHelpInline" required>
+                                </div>
+                                <div class="col-auto">
+                              <span id="IDHelpInline" class="form-text">
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                              <label for="inputPassword6" class="col-form-label">Password : </label>
+                            </div>
+                                <div class="col-auto">
+                                  <input type="password" id="inputPassword6" name="inputPassword6" form-control" aria-describedby="passwordHelpInline" required>
+                                </div>
+                                <div class="col-auto">
+                              <span id="passwordHelpInline" class="form-text">
+                              </span>
+                            </div>
+                          </div>
+          <br>
+                      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >บันทึกข้อมูล</button>
+                      <a href="/" class="btn btn-success">กลับสู่หน้าหลัก</a>
+
+                  <!-- Modal
+                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">บึกทึกข้อมูล</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ต้องการบันทึกข้อมูลหรือไม่
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      end Modal -->
+
+
+              </form>
+          </div>
+      </div>
+  </div>
+</body>
+</html>

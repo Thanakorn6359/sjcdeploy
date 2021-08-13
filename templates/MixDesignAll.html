@@ -1,0 +1,227 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>so_time</title>
+        <style>
+        table, th, thead {
+          border: 0px solid black;
+            font-size:10pt;
+        }
+        td,tbody {
+          border: 0px solid black;
+            font-size:12pt;
+            font-family: "Browallia New";
+        }
+        </style>
+
+
+    </head>
+
+    <body>
+        <div class="container-fluid"> <!--  ปรับขนาดหน้าจอตามอุปกรณ์  -->
+            <div class="card">
+            <div class="card-header bg-primary text-white" >
+                <h4 align="center">รายงานจัดอันดับการใช้สูตรผลิต</h4>
+            </div>
+
+            <div class="card-body" style="background-color: whitesmoke">
+                <form action = "{{url_for('do_report.MixDesignAll')}}"  method = 'post'>
+              <!--  ออกแบบ row  -->
+                  <div class="row" >
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label" for="f_do_date1"> จากวันที่ : </label>
+                            <input type="date" id="f_do_date1" name="f_do_date1" value="{{f_date1}}" required >
+                        </div>
+                        <div class="form-group col-sm-3">
+                                <label class="col-sm-4 control-label" for="t_order_date1">ถึงวันที่ :  </label>
+                                <input type="date" id="t_do_date1" name="t_do_date1" value="{{t_date1}}" required >
+                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                         <label class="col-md-4 control-label" for="soldto_select">เลือกรหัสลูกค้า:</label>
+                            <div class=”form-group”>
+                                <select id="soldto_select" name="soldto_select" class="select picker show-tick" data-live-search="true" title="Please select">
+                                    <option value="">clear Values</option>
+                                    {%  for i in sale_id  %}
+                                    <option value="{{i.0}},{{i.1}},{{i.2}},{{i.3}}"> {{i.0}}{{i.1}} {{i.2}} {{i.3}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                             <label class="col-md-4 control-label" for="p_id">เลือกแพล้นท์ :</label>
+                                <div class=”form-group”>
+                                    <select id="p_id" name="p_id" class="select picker show-tick" data-live-search="true" title="Please select plant" autocomplete="off">
+                                       <option value="">clear Values</option>
+                                          <option value="P201">P201</option>
+                                          <option value="P202">P202</option>
+                                          <option value="P203">P203</option>
+                                          <option value="P204">P204</option>
+                                          <option value="P205">P205</option>
+                                          <option value="P206">P206</option>
+                                          <option value="P207">P207</option>
+                                          <option value="P208">P208</option>
+                                          <option value="P209">P209</option>
+                                          <option value="P210">P210</option>
+                                          <option value="P211">P211</option>
+                                          <option value="P212">P212</option>
+                                          <option value="P213">P213</option>
+                                          <option value="P214">P214</option>
+                                          <option value="P215">P215</option>
+                                          <option value="P216">P216</option>
+                                          <option value="P217">P217</option>
+                                    </select>
+                                </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                             <label class="col-md-4 control-label" for="mix_id">เลือกสูตรผลิต:</label>
+                                <div class=”form-group”>
+                                    <select id="mix_id" name="mix_id" class="selectpicker show-tick" data-live-search="true" title="Please select" autocomplete="off">
+                                       <option value="">clear Values</option>
+                                        {%  for i in mix_id  %}
+                                        <option value="{{i.0}}">{{i.0}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                        </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                           <input class="btn btn-success btn-md" type="submit" value="submit">
+                    </div>
+                </div>
+                    <hr color="dark">
+                <div class="card-body" style="background-color: white">
+                    <div class="row">
+
+                        <div class="form-group col-md-12">
+                            <h3 style="font-family: 'Browallia New' ; color: darkblue ; font-weight: bolder">{{ plant_id }}</h2>
+                            <h3 style="font-family: 'Browallia New' ; color: darkblue ; font-weight: bolder" >รหัสลูกค้า : {{ s_c }} {{ s_c_n }} </h3>
+                            <h3 style="font-family: 'Browallia New' ; color: darkblue ; font-weight: bolder">สถานที่จัดส่ง :  {{ sh_c }} {{ sh_n }} </h2>
+                        </div>
+                    </div>
+                </div>
+                    <hr>
+                </form>
+
+
+               <!--  <h4>ยอดผลิตคอนกรีตแพล้นท์ {{p_id}} จำนวน {{sum_do_qty}}  คิว </h4>  -->
+                <div class="row">
+                    <div class="form-group col-md-2 offset-md-10"">
+                        <button class="btn btn-success btn-md"  id='DLtoExcel'>Export to Excel</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <div class="container-fluid">
+                    <table id="table2excel"  class="table table-striped table-sm table-bordered table-hover table caption-top">
+
+                        <br>
+                        <caption>Data Refersh Every 5 Minute</caption>
+                        <thead class="table-dark" >
+                            <tr>
+                                <th>No.</th>
+                                <th class="text-center">MixDeSign</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center" >Plant</th>
+                                <th class="text-center">SoldToCode</th>
+                                <th class="text-center">SoldToName</th>
+                                <th class="text-center">ShipCode</th>
+                                <th class="text-center">ShipName</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in datas %}
+                            <tr>
+                                <td class="text-center">{{row.0}}</td>
+                                <td class="text-center">{{row.1}}</td>
+                                <td class="text-center">{{ "{:,.2f}".format(row.2) }}</td>
+                                <td class="text-center">{{row.3}}</td>
+                                <td class="text-center">{{row.4}}</td>
+                                <td>{{row.5}}</td>
+                                <td class="text-center">{{row.6}}</td>
+                                <td>{{row.7}}</td>
+                            </tr>
+                          {% endfor %}
+                            <tr>
+                                <td class="text-center" style="background-color: whitesmoke ; font-size: x-large"></td>
+                                <td class="text-center" style="background-color: whitesmoke ; font-size: x-large">TOTAL </td>
+                                <td class="text-center" style="background-color: whitesmoke ; font-size: x-large">{{ "{:,.2f}".format(sum_qty) }} </td>
+                                <td class="text-center"></td>
+                                <td class="text-center"></td>
+                                <td></td>
+                                <td class="text-center"></td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+                <!-- lineChart -->
+                <!-- End lineChart -->
+            </div>
+        </div>
+
+                <script>
+
+                    $(function() {
+                      $("#DLtoExcel").click(function(){
+                        $("#table2excel").table2excel({
+                          exclude: "batching.xls",
+                          name: "Excel Document Name"
+                            });
+                      });
+                    });
+
+
+
+
+
+                </script>
+
+
+
+<!--
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable
+        ([
+            ['plant', 'P201', 'P202', 'P203'],
+          {% for row in datas %}
+          ["P1-17", 1000, 2000, 3000 ],
+            {% endfor %}
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+-->
+
+    </body>
+
+</html>

@@ -1,0 +1,71 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>batching_order</title>
+    </head>
+
+    <div>
+        <div class="container-fluid"> <!--  ปรับขนาดหน้าจอตามอุปกรณ์  -->
+            <div class="card" >
+                <div class="card-header bg-primary text-white" >
+                    <h4 align="center">รายงานสรูปยอดใช้ MIX Desing</h4>
+                </div>
+            <br>
+                <form action = "{{ url_for('mix_design_report') }}"  method = 'post' required>
+                  <!--  ออกแบบ row  -->
+                    <div class="card-body" style="background-color: whitesmoke">
+                      <div class="row" >
+                        <div class="form-group col-md-2">
+                            <label for="f_order_date">จากวันที่ : </label>
+                            <input type="date" id="f_order_date" name="f_order_date"  required >
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="t_order_date">ถึงวันที่ :  </label>
+                            <input type="date" id="t_order_date" name="t_order_date"  required >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="chose_plant">เลือกแพล้นท์ : &nbsp </label>
+                            <select class="form-select form-select-sm" name="p_id" aria-label=".form-select-lg example" required>
+                              <option selected>please select plant</option>
+                              <option value="P201">P201</option>
+                              <option value="P202">P202</option>
+                              <option value="P203">P203</option>
+                              <option value="P204">P204</option>
+                              <option value="P205">P205</option>
+                              <option value="P206">P206</option>
+                              <option value="P207">P207</option>
+                              <option value="P208">P208</option>
+                              <option value="P209">P209</option>
+                              <option value="P210">P210</option>
+                              <option value="P211">P211</option>
+                              <option value="P212">P212</option>
+                              <option value="P213">P213</option>
+                              <option value="P214">P214</option>
+                              <option value="P215">P215</option>
+                              <option value="P216">P216</option>
+                              <option value="P217">P217</option>
+                            </select>
+                          </div>
+
+
+
+
+                        <div class="form-group col-md-2">
+                           <input type="submit" value="OK">
+                        </div>
+                      </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <!--  <a href="/saleorder" class="btn btn-primary">กลับสุ่หน้าเพิ่มข้อมูลการจองคอนกรีต</a> -->
+
+    </body>
+</html>

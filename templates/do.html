@@ -1,0 +1,186 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+  body  {
+  background-image: url('{{ url_for('static', filename='img/bg.jpg') }}');
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.button {
+  border-radius: 4px;
+  background-color: #00b111;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+@font-face {
+  font-family: 'DIGITAL';
+  src: url('https://cssdeck.com/uploads/resources/fonts/digii/DS-DIGII.TTF');
+}
+
+
+
+.digital-clock {
+  margin: 0;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 60px;
+  color: #ffffff;
+  border: 2px solid #999;
+  border-radius: 4px;
+  text-align: end;
+  font: 50px/60px 'DIGITAL', Helvetica;
+  background: linear-gradient(90deg, #000, #555);
+}
+
+  table, th, thead {
+          border: 0px solid black;
+            font-size:15pt;
+        }
+        td,tbody {
+          border: 0px solid black;
+            font-size:20pt;
+            font-family: "Browallia New";
+        }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="digital-clock">00:00:00</div>
+    </div>
+    <div class="row justify-content-center">
+        <h3></h3>
+    </div>
+    <div class="row justify-content-center">
+        <br><br><br><br><br>
+        <h3></h3>
+    </div>
+    <div class="card">
+            <div class="card-header bg-primary text-white" >
+                <h4 align="center">รายงานจัดอันดับการใช้สูตรผลิต</h4>
+            </div>
+            <br>
+           <div class="card-body" style="background-color: whitesmoke">
+           </div>
+            <form action = "{{url_for('do_status.do')}}"  method = 'post'>
+                <div class="row" >
+                        <div class="form-group col-md-3">
+                            <label class="col-md-4 control-label" for="f_do_date1">วันที่ : </label>
+                            <input type="date" id="f_do_date1" name="f_do_date1"  required >
+                        </div>
+
+                        <div class="form-group col-md-5">
+                             <label class="col-md-5 control-label" for="p_id">เลือกแพล้นท์ :</label>
+                                <div class=”form-group”>
+                                    <select id="p_id" name="p_id" class="select picker show-tick" data-live-search="true" title="Please select plant" autocomplete="off">
+                                       <option value="">clear Values</option>
+                                          <option value="P201">P201</option>
+                                          <option value="P202">P202</option>
+                                    </select>
+                                </div>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                               <input class="btn btn-success btn-md" type="submit" value="submit">
+                        </div>
+
+
+                </div>
+
+                      <!-- test form check
+                      -->
+            </form>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+  clockUpdate();
+  setInterval(clockUpdate, 1000);
+})
+
+function clockUpdate() {
+  var date = new Date();
+  $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
+  function addZero(x) {
+    if (x < 10) {
+      return x = '0' + x;
+    } else {
+      return x;
+    }
+  }
+
+  function twelveHour(x) {
+    if (x > 12) {
+      return x = x - 12;
+    } else if (x == 0) {
+      return x = 12;
+    } else {
+      return x;
+    }
+  }
+
+  var h = addZero(twelveHour(date.getHours()));
+  var m = addZero(date.getMinutes());
+  var s = addZero(date.getSeconds());
+
+  $('.digital-clock').text(h + ':' + m + ':' + s)
+}
+
+
+</script>
+
+
+</html>

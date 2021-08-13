@@ -1,0 +1,226 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+        <div class="container">
+            <div class="card">
+                <div class = "card-header bg-dark text-white"><h4 align="center"> User List </h4></div>
+
+                <div class="table-responsive">
+                <div class="container-fluid">
+                    <table id="table2excel"  class="table table-striped table-sm table-bordered ">
+                        <br>
+                        <thead class="table-info">
+                            <tr>
+                                <th>ID</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <th>เพศ</th>
+                                <th>บริษัท</th>
+                                <th>ส่วนงาน</th>
+                                <th>ตำแหน่ง</th>
+                                <th>เบอร์โทรศัพท์</th>
+                                <th>email</th>
+                                <th>info</th>
+
+
+
+
+                     <!--           <th>เสียคันที่ 01</th>
+                                <th>เสียคันที่ 02</th>
+                                <th>เสียคันที่ 03</th>
+                                <th>เสียคันที่ 04</th>
+                                <th>เสียคันที่ 05</th>
+                                <th>เสียคันที่ 06</th>
+                                <th>เสียคันที่ 07</th>
+                                <th>เสียคันที่ 08</th>
+                                <th>เสียคันที่ 09</th>
+                    -->
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in datas %}
+                            <tr>
+                                <td>{{row.0}}</td>
+                                <td>{{row.1}}</td>
+                                <td>{{row.2}}</td>
+                                <td>{{row.3}}</td>
+                                <td>{{row.4}}</td>
+                                <td>{{row.5}}</td>
+                                <td>{{row.8}}</td>
+                                <td>{{row.9}}</td>
+                                <td>{{row.10}}</td>
+                                <td>
+                                    <button type="button" href="" class="btn btn-success" data-toggle="modal" data-target="#exampleModal1{{ row.0}}" >แก้ไข</button>
+                                    <a href="/delete_member/{{ row.0 }}" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">ลบ</a>
+
+                                 </td>
+                            </tr>
+                               <!--start Model -->
+                                <div class="modal fade bd-example-modal-xl " id="exampleModal1{{ row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+
+                                        <div class="modal-body">
+                                            <form action = "{{ url_for('member.edit_member') }}"  method = 'post'>
+                                              <div class="form-group row">
+
+                                                <div class="col-xs-0">
+                                                  <label for="ID"></label>
+                                                  <input type="hidden" class="form-control" id="ID" name="ID" value="{{row.0}}">
+                                                </div>
+
+                                                <div class="col-xs-4">
+                                                    <label for="firstname">ชื่อ</label>
+                                                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{row.1}}" required>
+                                                  </div>
+                                                <div class="col-xs-4">
+                                                    <label for="lastname">นามสกุล</label>
+                                                    <input type="text" class="form-control"name="lastname" value="{{row.2}}" required>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group" >
+                                              <label for="sex" class ="col-form-label">เพศ :</label>
+                                              <select class="custom-select" id="sex" name="sex" value="{{row.3}}" required>
+                                                <option value="ชาย" name="sex" selected>ชาย</option>
+                                                <option value="หญิง" name="sex" >หญิง</option>
+                                              </select>
+                                            </div>
+
+
+                                            <div class="form-group row" >
+                                                  <div class="col-xs-4">
+                                                    <label for="company" class ="col-form-label-lg">บริษัท :</label>
+                                                    <select class="custom-select" id="company" name="company"  placeholder="{{row.4}}" required>
+                                                     {%if row.4 == 'SOR'  %}
+                                                      <option value="SOR" name="SOR" selected>ส.เจริญชัย</option>
+                                                      <option value="SJC" name="SJC" >เอส.เจ.ซี.คอนกรีต</option>
+                                                      <option value="SJCPC" name="SJCPRECAST" >เอส.เจ.ซี.พรีคาสท์</option>
+                                                      <option value="SJCFF" name="SJCFASTFENCE" >เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                                                        {% elif row.4 == 'SJC' %}
+                                                      <option value="SJC" name="SJC" selected>เอส.เจ.ซี.คอนกรีต</option>
+                                                      <option value="SJC" name="SJC" >เอส.เจ.ซี.คอนกรีต</option>
+                                                      <option value="SJCPC" name="SJCPRECAST" >เอส.เจ.ซี.พรีคาสท์</option>
+                                                      <option value="SJCFF" name="SJCFASTFENCE" >เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                                                        {% elif row.4 == 'SJCPC' %}
+                                                      <option value="SJCPC" name="SJCPRECAST" selected>เอส.เจ.ซี.พรีคาสท์</option>
+                                                      <option value="SOR" name="SOR" selected>ส.เจริญชัย</option>
+                                                      <option value="SJC" name="SJC" >เอส.เจ.ซี.คอนกรีต</option>
+                                                      <option value="SJCFF" name="SJCFASTFENCE" >เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                                                        {% elif row.4 == 'SJCFF' %}
+                                                      <option value="SJCFF" name="SJCFASTFENCE" selected>เอส.เจ.ซี.ฟาสท์เฟ้นซ์</option>
+                                                      <option value="SOR" name="SOR" selected>ส.เจริญชัย</option>
+                                                      <option value="SJC" name="SJC" >เอส.เจ.ซี.คอนกรีต</option>
+                                                      <option value="SJCPC" name="SJCPRECAST" >เอส.เจ.ซี.พรีคาสท์</option>
+                                                        {% else %}
+                                                      <option value="none" name="none" selected></option>
+                                                        {% endif %}
+                                                    </select>
+                                                  </div>
+                                                  <div class="col-xs-4">
+                                                    <label for="department" class ="col-form-label-lg">ฝ่าย :</label>
+                                                    <select class="custom-select" id="department" name="department" placeholder="{{row.5}}" required>
+
+                                                      <option value="account" name="ACC" selected>ฝ่ายบัญชี</option>
+
+                                                      <option value="sales" name="sales" >ฝ่ายขาย</option>
+
+                                                      <option value="hr" name="hr" >ฝ่ายบุคคล</option>
+
+                                                      <option value="IT" name="IT" >ฝ่ายเทคโนโลยีสานสนทเศ</option>
+
+                                                      <option value="CDC" name="CDC" >CDC</option>
+
+                                                      <option value="transport" name="transport" >ฝ่ายขนส่ง</option>
+
+                                                      <option value="maintenance" name="maintenance" >ฝ่ายซ่อมบำรุง</option>
+
+                                                      <option value="store" name="store" >ฝ่ายคลังสินค้า</option>
+
+                                                      <option value="production_rmc" name="production_rmc" >ฝ่ายผลิตคอนกรีตผสมเสร็จ</option>
+
+                                                      <option value="production_cp" name="production_cp" >ฝ่ายผลิต ผลิตภัณฑ์สินค้าสำเร็จรูป</option>
+
+                                                      <option value="lab" name="lab" >ฝ่ายควบคุมคุณภาพ</option>
+
+                                                    </select>
+                                                  </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                      <div class="col-xs-4">
+                                                        <label for="position">ตำแหน่ง</label>
+                                                        <input type="text" class="form-control" id="position" name="position"  value="{{row.8}}" required>
+                                                      </div>
+                                                      <div class="col-xs-4">
+                                                        <label for="telephone">เบอร์โทรศัพท์</label>
+                                                        <input type="tel" class="form-control" id="telephone" name="telephone"  value="{{row.9}}" required>
+                                                      </div>
+                                                      <div class="col-xs-4">
+                                                        <label for="email">Email</label>
+                                                        <input type="email3" class="form-control" id="email" name="email" value="{{row.10}}" >
+                                                      </div>
+                                                </div>
+
+                                            <span id="textg" class="form-text">
+                                                <p> ** กำหนด Password ในการเข้าใช้งาน ** <p>
+                                            </span>
+                                                  <div class="row g-3 align-items-center">
+                                                    <div class="col-auto">
+                                                      <label for="inputPassword6" class="col-form-label" value="{{row.12}}" >Password</label>
+                                                    </div>
+                                                        <div class="col-auto">
+                                                          <input type="password" id="inputPassword6" name="inputPassword6" form-control" aria-describedby="passwordHelpInline" required>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                      <span id="passwordHelpInline" class="form-text">
+                                                        Reset Password
+                                                      </span>
+                                                    </div>
+                                                  </div>
+
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">update</button>
+                                      </div>
+                                    </form>
+
+                                    </div>
+                                  </div>
+                                </div>
+                        <!-- end Model pop up  -->
+
+
+                          {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            </div>
+
+
+
+        </div>
+</body>
+</html>

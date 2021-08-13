@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
+<meta name="description" content="Advanced data tables with ultra fast search box, pagination, tables header sorting, filter number of records and display number of entries.  ">
+<title>Bootstrap Advanced Data Tables Demo » WebNots</title>
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href='{{ url_for('static', filename='css/bootstrap.min.css') }}'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href='{{ url_for('static', filename='css/dataTables.bootstrap.css') }}'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+.table-responsive {
+overflow-x: hidden;
+}
+@media (max-width: 800px) {
+.table-responsive {
+overflow-x: auto;
+}
+</style>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark" >
+  <form class="container-fluid justify-content-start">
+      <a href="/delivery_order" class="btn btn-outline-warning me-4" style="font-size: large" type="button" >ALL</a>
+      <a href="/delivery_order_f201"  class="btn btn-outline-warning me-4" style="font-size: large" type="button">F201</a>
+      <a href="/delivery_order_f202" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F202</a>
+      <a href="/delivery_order_f203" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F203</a>
+      <a href="/delivery_order_f204" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F204</a>
+      <a href="/delivery_order_f205" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F205</a>
+      <a href="/delivery_order_f206" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F206</a>
+      <a href="/delivery_order_f221" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F221</a>
+      <a href="/delivery_order_f241" class="btn btn-outline-warning me-4" style="font-size: large" type="button">F241</a>
+    <a href="/do" class="btn btn-sm btn-outline-secondary" type="button">report</a>
+  </form>
+</nav>
+
+<div class="container">
+<div class="panel-body">
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Rendering engine</th>
+                                            <th>Browser</th>
+                                            <th>Platform(s)</th>
+                                            <th>Engine version</th>
+                                            <th>CSS grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 4.0</td>
+                                            <td>Win 95+</td>
+                                            <td class="center">4</td>
+                                            <td class="center">X</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+<!-- End of first row (copy and paste this block to append additional rows -->
+<!-- Paste additional rows here -->
+      </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap.js') }}"></script>
+<script>
+$(document).ready(function () {
+$('#dataTables-example').dataTable();
+});
+</script>
+<script src="{{ url_for('static', filename='js/anchor.min.js') }}"></script>
+  </body>
+</html>
