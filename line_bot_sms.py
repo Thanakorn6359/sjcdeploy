@@ -4,9 +4,8 @@ from flask import Flask,request,abort
 import os
 import json
 import requests
-from OpenSSL import SSL
-
-print (SSL._CERTIFICATE_PATH_LOCATIONS)
+#from OpenSSL import SSL
+#print (SSL._CERTIFICATE_PATH_LOCATIONS)
 
 
 
@@ -122,5 +121,5 @@ def ReplyMessage(Reply_token, TextMessage, Line_Acees_Token):
 #
 # #------------ end edit zone  --------
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', debug=True, port=int(os.environ.get('PORT','5100')))
-    app.run(host='192.168.100.10', debug=True, ssl_context='adhoc' , port=int(os.environ.get('PORT','5100')))
+    app.run(host='0.0.0.0', debug=True, port=int(os.environ.get('PORT','5100')))
+    #app.run(host='192.168.100.10', debug=True, ssl_context='adhoc' , port=int(os.environ.get('PORT','5100')))
